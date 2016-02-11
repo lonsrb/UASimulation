@@ -1,0 +1,10 @@
+framework module UAChat {
+  umbrella header "UAChat.h"
+
+  export *
+  module * { export * }
+}
+
+module UAChat.Swift {
+    header "UAChat-Swift.h"
+}

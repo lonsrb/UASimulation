@@ -1,0 +1,51 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf340
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs22 \cf0 \expnd0\expndtw0\kerning0
+UAChat Simulation Debrief \
+\
+
+\i 1. Your overall library interface and design
+\i0 \
+	The library is named UAChat and is a pure swift library. It is a basic & very thin library that provides 3 main benefits. It allows interaction with the API endpoints in a protected manner, it has through validation built in, and it is well tested. These make it easier for the consumer of the library to be able to focus on their coding responsibilities.\
+\uc0\u8232 
+\i 2. The reference app
+\i0 \
+	The reference app consumes the library. It is also a pure swift app and provides a basic UI to make it easy to interact with the functionality provided by the library.\uc0\u8232 \
+
+\i 3. The tests and test plans
+\i0 \
+	The tests are mostly around confirming success cases, and checking validation.\
+	Some of the tests, test some server logic, like the face that pulling messages deletes them off the server. Or that the timeouts actually do work. But these are so vital to the purpose of the SDK that it was worth testing them client side so if they ever change or break it\'92ll be known immediately. 	\
+\uc0\u8232 
+\i 4. Any decisions/tradeoffs you made along the way
+\i0 \
+	I decided to write the sdk completely in swift as I\'92ve never done it before. Its odd because swift doesn\'92t generate the public headers with the method declarations and typically this is a good spot to put your documentation. The sdk does create a public header, but you have to manually put the swift method signatures in there. \
+\
+	I toyed around with the idea of making model objects to move the data around in. But decided that they were just add undo complexity. Sometimes an array of string really is ok and doesn\'92t need to be wrapped in a Messages model.\
+\
+	As far as tradeoffs, I was a little unclear on the social/sharing component of the exercise. I did create a \'93share\'94 button that would popup a share sheet to share to FB or Twitter on a device. But I didn\'92t get the feeling that\'92s what you were going for. I was thinking maybe the idea was to install cocoa pods and use the actually FB & Twitter SDKs.. but I wasn\'92t sure exactly how we\'92d use them other than posting, which the share sheet can do.\
+\uc0\u8232 
+\i 5. Known issues and what would be improved/added in version 2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 	  
+\i0 \kerning1\expnd0\expndtw0 Absolutely need to build a universal library. I gave it a shot but I've only ever created universal libraries twice and they both involved a somewhat complicated shell script to run after building. They were for ObjC not swift and I didn't have the time to dig in deep and make it work for this simulation. 
+\i \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\partightenfactor0
+
+\i0 \cf0 \
+	The unit tests technically interact with the network/server which I\'92m not happy about. If the server goes down your tests fail. Only integration tests should do that. If I\'92d had more time I\'92d have pulled all server interaction out into a Service class and the main UAChat class would\'92ve just don\'92t validation and passed through the data to the Service class and let it take care of the actual network stuff.\
+\
+	This would allow me to mock out the service class and make true unit tests. It maybe seems like over kill on a small project like this but would be vital on anything bigger.\
+\
+
+\i 6. Anything else you'd like to share. 
+\i0 \
+	If I get this position I\'92ve already decided I want to study up on documentation & versioning best practices for SDK\'92s and probably a refresher on testing as well. I\'92ve encountered more than my fair share of poorly documented and poorly versioned libraries out there and would make it may mission to not have that be what I/we produce.
+\f1\fs24 \
+}
